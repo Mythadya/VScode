@@ -1,0 +1,34 @@
+@startuml
+
+actor Client
+actor Commercial
+actor GestionnaireProduits
+actor SystemePaiement
+
+rectangle "Gestion du catalogue" {
+  Client --> (Consulter le catalogue)
+  GestionnaireProduits --> (Mettre à jour le catalogue)
+}
+
+rectangle "Gestion du panier" {
+  Client --> (Ajouter un produit au panier)
+  Client --> (Modifier la quantité d'un produit)
+  Client --> (Supprimer un produit du panier)
+}
+
+rectangle "Processus de commande" {
+  Client --> (Valider le panier)
+  Client --> (Se connecter / S'inscrire)
+  Client --> (Saisir les adresses de livraison et facturation)
+  Client --> (Choisir le mode de paiement)
+  SystemePaiement --> (Valider le paiement)
+  Client --> (Confirmer la commande)
+}
+
+rectangle "Suivi et gestion" {
+  Client --> (Suivre le statut de la commande)
+  Commercial --> (Gérer les clients)
+  GestionnaireProduits --> (Gérer les stocks)
+}
+
+@enduml

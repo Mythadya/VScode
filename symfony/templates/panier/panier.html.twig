@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Panier{% endblock %}
+
+{% block body %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Rock Salt', cursive;
+        background-color: #f8f8f8;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #333;
+        padding: 15px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 10;
+    }
+
+    .navbar-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .logo {
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .separator {
+        color: white;
+        font-size: 18px;
+        padding: 0 8px;
+    }
+
+    /* Panier */
+    .cart-container {
+        max-width: 800px;
+        margin: 100px auto 50px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-title {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item img {
+        height: 80px;
+        width: 80px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+
+    .cart-item .item-details {
+        flex-grow: 1;
+        margin-left: 15px;
+    }
+
+    .cart-item .item-name {
+        font-size: 18px;
+        color: #555;
+    }
+
+    .cart-item .item-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .cart-item button {
+        background: #e74c3c;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .cart-item button:hover {
+        background: #c0392b;
+    }
+
+    .cart-footer {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .cart-footer button {
+        background: #2ecc71;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .cart-footer button:hover {
+        background: #27ae60;
+    }
+
+    /* Social Bar */
+    .social-bar {
+        background-color: #f1f1f1;
+        padding: 1em;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+
+    .social-bar a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #333;
+    }
+</style>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="navbar-center">
+        <img src="/images/Logo_15.png" alt="Logo" class="logo">
+        <a href="/accueil">Accueil</a>
+        <a href="/rubrique">Rubrique</a>
+        <a href="/produit">Produit</a>
+        <a href="/propos">À Propos</a>
+        <span class="separator">|</span>
+        <a href="/connexion">Connexion</a>
+        <a href="/panier">Panier</a>
+    </div>
+</div>
+
+<div class="cart-container">
+    <h1 class="cart-title">Votre Panier</h1>
+    
+    <div class="cart-items">
+        {% if panier is not empty %}
+            {% for id, quantity in panier %}
+            <div class="cart-item">
+                <img src="/images/produit_{{ id }}.jpg" alt="Produit {{ id }}">
+                <div class="item-details">
+                    <span class="item-name">Produit {{ id }}</span>
+                    <span class="item-quantity">Quantité: {{ quantity }}</span>
+                </div>
+                <div class="item-actions">
+                    <a href="{{ path('panier_remove', {'id': id}) }}" class="remove-button">Retirer</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Votre panier est vide.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Social Media Bar -->
+<div class="social-bar">
+    <a href="https://www.facebook.com" target="_blank">Facebook</a>
+    <a href="https://www.twitter.com" target="_blank">Twitter</a>
+    <a href="https://www.instagram.com" target="_blank">Instagram</a>
+    <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+    <span>|</span>
+    <a href="/conditions-utilisation">Conditions d'utilisation</a>
+    <a href="/politique-confidentialite">Politique de confidentialité</a>
+    <a href="/contact">Contact</a>
+</div>
+{% endblock %}

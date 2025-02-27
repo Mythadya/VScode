@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sous-Rubriques{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Toutes les Sous-Rubriques</h1>
+
+        <ul>
+            {% for sousRubrique in sousRubriques %}
+                <li>{{ sousRubrique.libelle }}</li>
+            {% else %}
+                <li>Aucune sous-rubrique disponible.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,207 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos de Village Green{% endblock %}
+
+{% block body %}
+<style>
+    /* Importation de la police Rock Salt */
+    @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+    /* Appliquer la police sur tout le site */
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Rock Salt', cursive;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #333;
+        padding: 15px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 10;
+    }
+
+    .navbar-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+        border-radius: 5px;
+    }
+
+    .logo {
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .separator {
+        color: white;
+        font-size: 18px;
+        padding: 0 8px;
+    }
+
+    /* Parallax Background */
+    .parallax {
+        background-image: url('/images/pexels-pixabay-290660-acc.jpg');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    /* Contenu principal */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 100px 20px 50px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .card {
+        max-width: 800px;
+        padding: 40px;
+        background: white;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    h1, h2 {
+        color: #0056b3;
+        margin-bottom: 15px;
+    }
+
+    p {
+        text-align: justify;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    /* Section Rubriques */
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin: 20px auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cards-container .card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 250px;
+        text-align: center;
+    }
+
+    /* Social Bar */
+    .social-bar {
+        background-color: #f1f1f1;
+        padding: 1em;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+
+    .social-bar a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #333;
+    }
+</style>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="navbar-center">
+        <img src="/images/Logo_15.png" alt="Logo" class="logo">
+        <a href="/accueil">Accueil</a>
+        <a href="/rubrique">Rubrique</a>
+        <a href="/produit">Produit</a>
+        <a href="/propos">À Propos</a>
+        <span class="separator">|</span>
+        <a href="/connexion">Connexion</a>
+        <a href="/panier">Panier</a>
+    </div>
+</div>
+
+<div class="parallax"></div>
+
+<div class="container">
+    <div class="card">
+        <h1>À propos de Village Green 🎵</h1>
+        <p>
+            Bienvenue chez <strong>Village Green</strong>, votre boutique en ligne dédiée aux passionnés de musique !  
+            Que vous soyez musicien débutant, artiste confirmé ou simplement mélomane en quête d’un son exceptionnel,  
+            nous avons tout ce qu’il vous faut pour nourrir votre passion.
+        </p>
+
+        <h2>🎸 Une sélection pensée pour tous les musiciens</h2>
+        <ul>
+            <li><strong>Instruments de musique :</strong> guitares, claviers, batteries, instruments à vent et bien plus encore.</li>
+            <li><strong>Accessoires indispensables :</strong> cordes, médiators, housses, supports, accordeurs…</li>
+            <li><strong>Équipement audio :</strong> enceintes, casques, microphones et interfaces pour un son impeccable.</li>
+        </ul>
+
+        <h2>🌱 Une approche éthique et responsable</h2>
+        <p>
+            Chez <strong>Village Green</strong>, nous croyons en une musique respectueuse de l’environnement.  
+            Nous privilégions des marques engagées dans une production durable et des matériaux écoresponsables.
+        </p>
+
+        <h2>🎶 Un service à l’écoute</h2>
+        <p>
+            Notre équipe de passionnés est là pour vous conseiller et vous accompagner dans le choix de votre matériel.  
+            Besoin d’aide ? Nous sommes à votre disposition pour vous guider vers les meilleurs produits adaptés à vos besoins.
+        </p>
+
+        <p><strong>Rejoignez la communauté Village Green et faites de la musique une véritable source d’inspiration et de partage !</strong> 🎵</p>
+    </div>
+</div>
+
+<!-- Social Media Bar -->
+<div class="social-bar">
+    <a href="https://www.facebook.com" target="_blank">Facebook</a>
+    <a href="https://www.twitter.com" target="_blank">Twitter</a>
+    <a href="https://www.instagram.com" target="_blank">Instagram</a>
+    <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+    <span>|</span>
+    <a href="/conditions-utilisation">Conditions d'utilisation</a>
+    <a href="/politique-confidentialite">Politique de confidentialité</a>
+    <a href="/contact">Contact</a>
+</div>
+
+{% endblock %}

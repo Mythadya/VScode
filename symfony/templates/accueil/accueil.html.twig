@@ -1,0 +1,266 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VillageGreen - Accueil{% endblock %}
+
+{% block body %}
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-center">
+            <img src="/images/Logo_15.png" alt="Logo" class="logo">
+            <a href="/accueil">Accueil</a>
+            <a href="/rubrique">Rubrique</a>
+            <a href="/produit">Produit</a>
+            <a href="/propos">À Propos</a>
+            <span class="separator">|</span>
+            <a href="/connexion">Connexion</a>
+            <a href="/panier">Panier</a>
+        </div>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="parallax"></div>
+
+    <!-- Main Content and Rubriques Cards -->
+    <div class="container">
+        <!-- Card Principal with custom class -->
+        <div class="card main-card">
+            <h1>Bienvenue sur notre site de vente d'articles de musique! 🎶</h1>
+            <p>Découvrez notre large sélection d'articles de musique, y compris :</p>
+            <ul>
+                <li>Instruments de musique</li>
+                <li>Accessoires pour musiciens</li>
+                <li>Équipement audio</li>
+            </ul>
+            <p>Nous avons tout ce qu'il vous faut pour exprimer votre passion pour la musique!</p>
+        </div>
+
+        <!-- Section Rubriques -->
+        <h2 class="section-title">Nos Rubriques</h2>
+        <div class="cards-container">
+            {% for rubrique in rubriques %}
+                <div class="card">
+                    <img src="/images/{{ rubrique.libelle|lower }}.jpg" alt="{{ rubrique.libelle }}" onerror="this.onerror=null;this.src='/images/app-6702045_1280-card-default.png';">
+                    <h2>{{ rubrique.libelle }}</h2>
+                    <p>Découvrez notre sélection dans cette rubrique.</p>
+                    <a href="/rubrique/{{ rubrique.libelle|lower }}">Voir plus</a>
+                </div>
+            {% else %}
+                <p>Aucune rubrique disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Social Media Bar -->
+    <div class="social-bar">
+        <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        <a href="https://www.twitter.com" target="_blank">Twitter</a>
+        <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+        <span>|</span>
+        <a href="/conditions-utilisation">Conditions d'utilisation</a>
+        <a href="/politique-confidentialite">Politique de confidentialité</a>
+        <a href="/contact">Contact</a>
+    </div>
+
+    <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #333;
+        padding: 10px 20px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed; /* Navbar fixe en haut */
+        width: 100%;
+        top: 0;
+        z-index: 2; /* Ajouté */
+    }
+
+    .navbar-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar img {
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+        font-family: 'Rock Salt', cursive; /* Police musicale */
+    }
+
+    .navbar a:hover {
+        text-decoration: underline;
+    }
+
+    /* Parallax Background */
+    .parallax {
+        background-image: url('/images/pexels-pixabay-290660-acc.jpg');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh; /* La parallax prend toute la hauteur de la page */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1; /* Assurer que la parallax reste derrière la card */
+    }
+
+    /* Main content styles */
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Alignement en haut */
+        align-items: center;
+        padding: 20px;
+        position: relative;
+        z-index: 1;
+        margin-top: 80px; /* Marge en haut pour la navbar */
+    }
+
+    .card {
+        max-width: 800px;
+        width: 100%;
+        padding: 40px;
+        background: white;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        text-align: left;
+        font-family: 'Rock Salt', cursive;
+        font-size: 14px;
+        margin-bottom: 30px; /* Espace entre les cards */
+    }
+    .card img {
+     width: 100%;
+     height: auto;
+     border-radius: 8px;
+     object-fit: cover; /* Assure que l'image occupe bien tout l'espace de la carte */
+     max-height: 140px; /* Ajuste la hauteur maximale de l'image */
+    }
+
+    h1, h2 {
+        color: #0056b3;
+        margin-bottom: 5px;
+    }
+
+    p {
+        text-align: justify;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    ul {
+        color: #555;
+        margin-left: 20px;
+    }
+
+    /* Nos Rubriques */
+    .section-title {
+        font-size: 24px;
+        color: #0056b3;
+        text-align: center;
+        margin: 40px 0;
+        width: 100%;
+    }
+
+    .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    }
+
+    .cards-container .card {
+    max-width: 250px;
+    flex: 1 1 calc(50% - 15px); /* Deux cartes par ligne */
+    padding: 15px;
+    text-align: center;
+    font-size: 12px; /* Réduction de la taille du texte */
+    }
+
+    .cards-container .card h2 {
+    font-size: 16px; /* Réduction de la taille du titre */
+    }
+
+    .cards-container .card p {
+    font-size: 12px;
+    }
+
+    /* Footer (Social Bar) */
+    .footer {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .footer a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+
+    /* Social Bar */
+    .social-bar {
+        background-color: #f1f1f1;
+        padding: 0.5em;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 2; /* Assurer que la social bar soit visible */
+        font-family: 'Rock Salt', cursive; /* Ajout de la police Rock Salt */
+    }
+
+    .social-bar a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #333;
+        font-family: 'Rock Salt', cursive; /* Assure que les liens utilisent la même police */
+    }
+
+    .social-bar a:hover {
+        text-decoration: underline;
+    }
+.section-title {
+    margin-top: 10px;
+    margin-bottom: 14px;
+    font-size:20px;
+    font-family: 'Rock Salt', cursive;
+}
+
+/* Réduction de l'espace sous la carte principale */
+.main-card {
+    margin-bottom: 10px;
+}
+
+/* Réduction de l'espace entre les cartes */
+.cards-container .card {
+    margin-bottom: 15px;
+}
+
+</style>
+
+{% endblock %}
