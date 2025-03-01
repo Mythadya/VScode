@@ -8,7 +8,7 @@ mysqldump --user=xxx --password=xxx VillageGreen > backup_VillageGreen.sql
 Restauration
 Pour restaurer, on va utiliser la commande mysql (et non plus mysqldump).
 
-Par précaution, on va restaurer la base hotel sous un autre nom.
+Par précaution, on va restaurer la base VillageGreen sous un autre nom.
 
 Pour la restauration, on va utiliser la commande mysql .
 
