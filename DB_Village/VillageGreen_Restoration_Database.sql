@@ -14,7 +14,7 @@ Pour la restauration, on va utiliser la commande mysql .
 
 Exécutez la commande suivante :
 
-cat backup_hotel.sql | mysql --user=xxx --password=xxx new_VillageGreen
+cat backup_VillageGreen.sql | mysql --user=xxx --password=xxx new_VillageGreen
 
 Dans cet exemple nous vidons le script backup_VillageGreen.sql dans la commande mysql. Toutes les commandes du fichier backup_VillageGreen.sql sont éxécutées...
 
