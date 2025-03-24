@@ -1,0 +1,341 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <style>
+        /* Importation de la police Rock Salt */
+        @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+        /* Appliquer la police sur tout le site */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Rock Salt', cursive;
+            overflow-x: hidden; /* Empêche le débordement horizontal */
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+
+        .navbar-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .navbar a:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .separator {
+            color: white;
+            font-size: 18px;
+            padding: 0 8px;
+        }
+
+        /* Parallax Background */
+        .parallax {
+            background-image: url('{{ asset('images/pexels-markusspiske-92083-ins.jpg') }}');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            width: 100%;
+            min-height: 100vh;
+            top: 0;
+            z-index: -1;
+        }
+
+        /* Container Principal */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        /* Carte d'inscription */
+        .login-card {
+            max-width: 800px;
+            width: 100%;
+            padding: 30px;
+            background: white;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            margin-top: -120px;
+        }
+
+        .login-card h2 {
+            margin-bottom: 20px;
+        }
+
+        .login-card .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .login-card .form-row .col {
+            flex: 1;
+            min-width: 45%; /* Chaque champ prend environ la moitié de l'espace */
+        }
+
+        .login-card input,
+        .login-card select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Arial', sans-serif; /* Plus lisible que Rock Salt pour les inputs */
+            font-size: 16px;
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-return {
+            background: #ccc;
+        }
+
+        .btn-connect {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-connect:hover {
+            background-color: #0056b3;
+        }
+
+        /* Social Bar */
+        .social-bar {
+            background-color: #f1f1f1;
+            padding: 1em;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .social-bar a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .social-bar a:hover {
+            color: #007bff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-center {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .social-bar {
+                font-size: 14px;
+                padding: 0.5em;
+            }
+
+            .login-card {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .login-card input,
+            .login-card select,
+            .login-card button {
+                font-size: 14px;
+            }
+
+            .login-card .form-row {
+                flex-direction: column;
+            }
+
+            .login-card .form-row .col {
+                min-width: 100%; /* Sur petits écrans, chaque champ prend toute la largeur */
+            }
+        }
+    </style>
+
+    <div class="parallax"></div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-center">
+            <img src="/images/Logo_15.png" alt="Logo" class="logo">
+            <a href="/accueil">Accueil</a>
+            <a href="/rubrique">Rubrique</a>
+            <a href="/produit">Produit</a>
+            <a href="/propos">À Propos</a>
+            <span class="separator">|</span>
+            <a href="/panier">Panier</a>
+
+            {% if app.user %}
+                <a href="{{ path('app_profil') }}">{{ app.user.nom }}</a>
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_connexion') }}">Connexion</a>
+            {% endif %}
+        </div>
+    </div>
+
+     <div class="container mt-5">
+        <div class="login-card">
+            <h2 class="text-center">Inscription</h2>
+
+            {{ form_start(form) }}
+                <div class="form-row">
+                    <div class="col mb-3">
+                        {{ form_label(form.nom) }}
+                        {{ form_widget(form.nom) }}
+                    </div>
+
+                    <div class="col mb-3">
+                        {{ form_label(form.prenom) }}
+                        {{ form_widget(form.prenom) }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col mb-3">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </div>
+
+                    <div class="col mb-3">
+                        {{ form_label(form.telephone) }}
+                        {{ form_widget(form.telephone) }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col mb-3">
+                        {{ form_label(form.adresseFacturation) }}
+                        {{ form_widget(form.adresseFacturation) }}
+                    </div>
+
+                    <div class="col mb-3">
+                        {{ form_label(form.adresseLivraison) }}
+                        {{ form_widget(form.adresseLivraison) }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col mb-3">
+                        {{ form_label(form.Mots_De_Passe) }}
+                        {{ form_widget(form.Mots_De_Passe) }}
+                    </div>
+                </div>
+
+                <!-- Champ supplémentaire, type de client et numéro de SIRET -->
+                <div class="form-row">
+                    <div class="col mb-3">
+                        {{ form_label(form.typeClient) }}
+                        {{ form_widget(form.typeClient) }}
+                    </div>
+                    <div class="col mb-3">
+                        {{ form_label(form.numeroSiret) }}
+                        {{ form_widget(form.numeroSiret) }}
+                    </div>
+                </div>
+
+                <!-- Le bouton de soumission doit être à la fin -->
+                <div class="form-submit text-center mt-auto">
+                    {{ form_widget(form.submit) }}
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <!-- Script JavaScript pour l'affichage dynamique du champ numéroSiret -->
+    <script>
+        function toggleSiretField() {
+            var typeClient = document.querySelector('[name="client[typeClient]"]').value;
+            var siretField = document.querySelector('.numero-siret-field');
+            
+            if (typeClient === 'Professionnel') {
+                siretField.style.display = 'block';  // Affiche le champ numéro SIRET
+            } else {
+                siretField.style.display = 'none';  // Cache le champ numéro SIRET
+            }
+        }
+
+        // Initialiser l'affichage en fonction de la valeur actuelle du champ typeClient
+        document.addEventListener('DOMContentLoaded', function () {
+            toggleSiretField();
+        });
+
+        // Gérer l'affichage au changement de sélection du type de client
+        document.querySelector('[name="client[typeClient]"]').addEventListener('change', function() {
+            toggleSiretField();
+        });
+    </script>
+    
+    <!-- Social Media Bar -->
+    <div class="social-bar">
+        <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        <a href="https://www.twitter.com" target="_blank">Twitter</a>
+        <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+        <span>|</span>
+        <a href="/conditions-utilisation">Conditions d'utilisation</a>
+        <a href="/politique-confidentialite">Politique de confidentialité</a>
+        <a href="/contact">Contact</a>
+    </div>
+{% endblock %}

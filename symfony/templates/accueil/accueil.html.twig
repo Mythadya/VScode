@@ -12,8 +12,14 @@
             <a href="/produit">Produit</a>
             <a href="/propos">À Propos</a>
             <span class="separator">|</span>
-            <a href="/connexion">Connexion</a>
             <a href="/panier">Panier</a>
+
+          {% if app.user %}
+             <a href="{{ path('app_profil') }}">{{ app.user.nom }}</a>
+             <a href="{{ path('app_logout') }}">Déconnexion</a>
+          {% else %}
+             <a href="{{ path('app_connexion') }}">Connexion</a>
+          {% endif %}
         </div>
     </div>
 
@@ -37,13 +43,15 @@
         <!-- Section Rubriques -->
         <h2 class="section-title">Nos Rubriques</h2>
         <div class="cards-container">
-            {% for rubrique in rubriques %}
-                <div class="card">
-                    <img src="/images/{{ rubrique.libelle|lower }}.jpg" alt="{{ rubrique.libelle }}" onerror="this.onerror=null;this.src='/images/app-6702045_1280-card-default.png';">
-                    <h2>{{ rubrique.libelle }}</h2>
-                    <p>Découvrez notre sélection dans cette rubrique.</p>
-                    <a href="/rubrique/{{ rubrique.libelle|lower }}">Voir plus</a>
-                </div>
+        {% for rubrique in rubriques %}
+        <div class="card">
+         <img src="/images/{{ rubrique.id }}.jpg" 
+             alt="{{ rubrique.libelle }}" 
+             onerror="this.onerror=null;this.src='/images/app-6702045_1280-card-default.png';">
+           <h2>{{ rubrique.libelle }}</h2>
+          <p>Découvrez notre sélection dans cette rubrique.</p>
+          <a href="/rubrique/{{ rubrique.id }}">Voir plus</a>
+        </div>
             {% else %}
                 <p>Aucune rubrique disponible.</p>
             {% endfor %}
@@ -93,7 +101,7 @@
 
     .navbar img {
         height: 40px;
-        margin-right: 15px;
+        margin-right: 10px;
     }
 
     .navbar a {
@@ -253,12 +261,12 @@
 
 /* Réduction de l'espace sous la carte principale */
 .main-card {
-    margin-bottom: 10px;
+    margin-bottom: 9px;
 }
 
 /* Réduction de l'espace entre les cartes */
 .cards-container .card {
-    margin-bottom: 15px;
+    margin-bottom: 13px;
 }
 
 </style>

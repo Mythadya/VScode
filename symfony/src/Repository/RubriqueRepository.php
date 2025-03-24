@@ -18,10 +18,9 @@ class RubriqueRepository extends ServiceEntityRepository
     public function findByLibelle(string $libelle): array
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.libelle LIKE :libelle')
-            ->setParameter('libelle', '%' . $libelle . '%') // Passer le paramètre ici
-            ->orderBy('r.libelle', 'ASC')
-            ->getQuery()
-            ->getResult();
+         ->select('r.id, r.libelle') // On récupère aussi le libelle
+         ->orderBy('r.id', 'ASC')
+         ->getQuery()
+         ->getResult();
     }
 }

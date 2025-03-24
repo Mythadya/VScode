@@ -1,0 +1,195 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<style>
+    /* Importation de la police Rock Salt */
+    @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+    /* Appliquer la police sur tout le site */
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Rock Salt', cursive;
+        overflow-x: hidden; /* Empêche le débordement horizontal */
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #333;
+        padding: 15px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 10;
+    }
+
+    .navbar-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .logo {
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .separator {
+        color: white;
+        font-size: 18px;
+        padding: 0 8px;
+    }
+
+    /* Parallax Background */
+    .parallax {
+        background-image: url('/images/music-1283851_1920-Rub.jpg');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        width: 100%;
+        min-height: 100vh;
+        top: 0;
+        z-index: -1;
+    }
+
+    /* Container Principal */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 120px 20px 80px;
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+    }
+
+    /* Carte de Connexion */
+    .login-card {
+        max-width: 400px;
+        width: 100%;
+        padding: 30px;
+        background: white;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .login-card input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: 'Arial', sans-serif; /* Plus lisible que Rock Salt pour les inputs */
+    }
+
+    .login-card button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .btn-return {
+        background: #ccc;
+    }
+
+    .btn-connect {
+        background: #007bff;
+        color: white;
+    }
+
+    /* Social Bar */
+    .social-bar {
+        background-color: #f1f1f1;
+        padding: 1em;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+
+    .social-bar a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #333;
+    }
+</style>
+
+<!-- Parallax Background -->
+<div class="parallax"></div>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="navbar-center">
+        <img src="/images/Logo_15.png" alt="Logo" class="logo">
+        <a href="/accueil">Accueil</a>
+        <a href="/rubrique">Rubrique</a>
+        <a href="/produit">Produit</a>
+        <a href="/propos">À Propos</a>
+        <span class="separator">|</span>
+        <a href="/connexion">Connexion</a>
+        <a href="/panier">Panier</a>
+    </div>
+</div>
+
+<!-- Contenu principal -->
+<div class="container">
+    <div class="login-card">
+        <h2>Connexion</h2>
+        <form method="POST" action="{{ path('app_connexion') }}">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <button type="submit" class="btn-connect">Se connecter</button>
+        </form>
+        <a href="{{ path('app_home') }}">
+            <button class="btn-return">Retour</button>
+        </a>
+        <p>Pas encore de compte ? <a href="{{ path('app_inscription') }}">Inscrivez-vous ici</a>.</p>
+    </div>
+</div>
+
+
+<!-- Social Media Bar -->
+<div class="social-bar">
+    <a href="https://www.facebook.com" target="_blank">Facebook</a>
+    <a href="https://www.twitter.com" target="_blank">Twitter</a>
+    <a href="https://www.instagram.com" target="_blank">Instagram</a>
+    <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+    <span>|</span>
+    <a href="/conditions-utilisation">Conditions d'utilisation</a>
+    <a href="/politique-confidentialite">Politique de confidentialité</a>
+    <a href="/contact">Contact</a>
+</div>
+
+{% endblock %}

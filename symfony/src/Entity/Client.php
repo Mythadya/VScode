@@ -6,9 +6,12 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity]
-class Client
+#[ORM\Table(name: "Client")]
+class Client implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -46,10 +49,13 @@ class Client
     private ?string $nomCommercial = null;
 
     #[ORM\Column(type: "string", length: 150)]
-    private string $motsDePasse;
+    private string $Mots_De_Passe; // Utilisation de "Mots_De_Passe" pour la colonne
 
     #[ORM\Column(type: "string", length: 14, nullable: true)]
     private ?string $numeroSiret = null;
+
+    #[ORM\Column(type: 'string', length: 50)]
+    private string $role = 'ROLE_USER'; // Valeur par défaut
 
     #[ORM\OneToMany(mappedBy: "client", targetEntity: Commande::class)]
     private Collection $commandes;
@@ -74,7 +80,6 @@ class Client
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -86,7 +91,6 @@ class Client
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
-
         return $this;
     }
 
@@ -98,7 +102,6 @@ class Client
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -110,7 +113,6 @@ class Client
     public function setTelephone(string $telephone): static
     {
         $this->telephone = $telephone;
-
         return $this;
     }
 
@@ -122,19 +124,17 @@ class Client
     public function setTypeClient(string $typeClient): static
     {
         $this->typeClient = $typeClient;
-
         return $this;
     }
 
-    public function getCoefficient(): ?string
+    public function getCoefficient(): ?float
     {
         return $this->coefficient;
     }
 
-    public function setCoefficient(string $coefficient): static
+    public function setCoefficient(float $coefficient): static
     {
         $this->coefficient = $coefficient;
-
         return $this;
     }
 
@@ -146,7 +146,6 @@ class Client
     public function setAdresseFacturation(string $adresseFacturation): static
     {
         $this->adresseFacturation = $adresseFacturation;
-
         return $this;
     }
 
@@ -158,7 +157,6 @@ class Client
     public function setAdresseLivraison(string $adresseLivraison): static
     {
         $this->adresseLivraison = $adresseLivraison;
-
         return $this;
     }
 
@@ -170,7 +168,6 @@ class Client
     public function setRefClient(string $refClient): static
     {
         $this->refClient = $refClient;
-
         return $this;
     }
 
@@ -182,19 +179,18 @@ class Client
     public function setNomCommercial(?string $nomCommercial): static
     {
         $this->nomCommercial = $nomCommercial;
-
         return $this;
     }
 
-    public function getMotsDePasse(): ?string
+
+    public function getPassword(): string
     {
-        return $this->motsDePasse;
+        return $this->Mots_De_Passe;
     }
 
-    public function setMotsDePasse(string $motsDePasse): static
+    public function setPassword(string $Mots_De_Passe): static
     {
-        $this->motsDePasse = $motsDePasse;
-
+        $this->Mots_De_Passe = $Mots_De_Passe;
         return $this;
     }
 
@@ -206,7 +202,28 @@ class Client
     public function setNumeroSiret(?string $numeroSiret): static
     {
         $this->numeroSiret = $numeroSiret;
+        return $this;
+    }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Symfony demande cette fonction même si on ne l'utilise pas
+    }
+
+    // Correction de getRole() => getRoles()
+    public function getRoles(): array
+    {
+        return [$this->role]; // Symfony attend un tableau de rôles
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
         return $this;
     }
 
@@ -224,19 +241,16 @@ class Client
             $this->commandes->add($commande);
             $commande->setClient($this);
         }
-
         return $this;
     }
 
     public function removeCommande(Commande $commande): static
     {
         if ($this->commandes->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
             if ($commande->getClient() === $this) {
                 $commande->setClient(null);
             }
         }
-
         return $this;
     }
 }
